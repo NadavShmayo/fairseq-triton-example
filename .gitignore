@@ -1,0 +1,5 @@
+*.pt
+.idea
+venv
+__pycache__
+wmt14.en-fr.joined-dict.transformer

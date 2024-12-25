@@ -1,0 +1,73 @@
+name: "decoder"
+platform: "pytorch_libtorch"
+max_batch_size: 80
+input [
+  {
+    name: "INPUT__0"
+    data_type: TYPE_INT64
+    dims: [-1]
+  },
+  {
+    name: "INPUT__1"
+    data_type: TYPE_FP32
+    dims: [-1, 1024]
+  },
+  {
+    name: "INPUT__2"
+    data_type: TYPE_INT64
+    dims: [-1]
+  },
+  {
+    name: "INPUT__3"
+    data_type: TYPE_FP32
+    dims: [2, 6, 16, -1, 64]
+  },
+  {
+    name: "INPUT__4"
+    data_type: TYPE_FP32
+    dims: [2, 6, 16, -1, 64]
+  },
+  {
+    name: "INPUT__5"
+    data_type: TYPE_FP32
+    dims: [6, -1]
+  }
+]
+output [
+  {
+    name: "OUTPUT__0"
+    data_type: TYPE_FP32
+    dims: [1, 44512]
+  },
+  {
+    name: "OUTPUT__1"
+    data_type: TYPE_FP32
+    dims: [1, -1]
+  },
+  {
+    name: "OUTPUT__2"
+    data_type: TYPE_FP32
+    dims: [2, 6, 16, 1, 64]
+  },
+  {
+    name: "OUTPUT__3"
+    data_type: TYPE_FP32
+    dims: [2, 6, 16, -1, 64]
+  },
+  {
+    name: "OUTPUT__4"
+    data_type: TYPE_FP32
+    dims: [6, -1]
+  }
+]
+
+instance_group [
+    {
+        count: 1
+        kind: KIND_GPU
+    }
+]
+
+dynamic_batching {
+    max_queue_delay_microseconds: 100
+  }

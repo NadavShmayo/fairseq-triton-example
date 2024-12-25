@@ -1,0 +1,39 @@
+name: "encoder"
+platform: "pytorch_libtorch"
+max_batch_size: 16
+input [
+  {
+    name: "INPUT__0"
+    data_type: TYPE_INT64
+    dims: [-1]
+  },
+  {
+    name: "INPUT__1"
+    data_type: TYPE_INT64
+    dims: [1]
+  }
+]
+output [
+  {
+    name: "OUTPUT__0"
+    data_type: TYPE_FP32
+    dims: [-1, 1024]
+  },
+  {
+    name: "OUTPUT__1"
+    data_type: TYPE_INT64
+    dims: [-1]
+  }
+]
+
+instance_group [
+    {
+        count: 1
+        kind: KIND_GPU
+    }
+]
+
+
+dynamic_batching {
+    max_queue_delay_microseconds: 1000
+  }
